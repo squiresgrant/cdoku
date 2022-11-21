@@ -32,12 +32,12 @@ void matrixinit(matrix *m,size_t init){
   m->used = 0;
   m->size = init;
 }
-void matrixins(matrix *m,array e){
+void matrixins(matrix *m,array*e){
   if(m->used <=  m->size){
     m->size *= 4;
-    m->at = realloc(m->at,m->size*sizeof(e));
+    m->at = realloc(m->at,m->size*sizeof(*e));
   }
-  m->at[m->used++]=e;
+  m->at[m->used++]=*e;
 }
 void matrixkill(matrix*m){
   free(m->at);
@@ -48,11 +48,56 @@ int isvalid(array*a){
   for(int i = 0;i!=a->used;i++){
     for(int z = 0;z!=a->used;z++){
       if(a->at[i]==a->at[z]&&i!=z&&a->at[i]!=0){
-        return 1;
+        return 0;
       }
     }
   }
-  return 0;
+  return 1;
+}
+void matrixlist(matrix*m){
+  //printf("\n~ |  0  1  2  3  4  5  6  7  8  ...\n===============================\n");
+  printf("\n~ | ");
+  for(int i = 0; i!= m->used;i++){
+    printf(" %i ",i);
+  }
+  printf("\n=-|-");
+  for(int i = 0; i!= m->used;i++){
+    printf("=-=");
+  }
+  printf("\n");
+  for(int x = 0; x!= m->used;x++){
+    printf("%i | ",x);
+    for(int y =0; y!= m->at[x].used;y++){
+      printf(" %i ",m->at[x].at[y]);
+    }
+    printf("\n");
+  }
+}
+array array_shuffle_left(array*a){
+  //array an =  a;
+  int temp = a->at[0];
+  array an;
+  arrayinit(&an,1);
+  for(int x = 0; x!=a->used; x++){
+    arrayins(&an,a->at[x+1]);
+  }
+  an.at[an.used-1] = temp;
+  for(int x = 0; x!=a->used; x++){
+    a->at[x] = an.at[x];
+  }
+  return an;
+
+}
+
+matrix array_permutations(array a){
+  matrix perm;
+  matrixinit(&perm,1);
+  array temp = a;
+  for(int i = 0; i != a.used; i++){
+    array t = array_shuffle_left(&temp);
+    matrixins(&perm,&t);
+  }
+  return perm;
 }
 matrix getsol(array*a){
   array empty,contains,temp;
@@ -70,10 +115,6 @@ matrix getsol(array*a){
     
     arrayins(&temp,a->at[i]);
   }
-  for(int i = 0;i!=empty.used;i++){
-    printf("%i",empty.at[i]);
-  }
-  printf("\n%i\n",(int)empty.used);
   for(int it = 0; it != (int)empty.used; it++){
     int e = empty.at[it];
     
@@ -82,7 +123,7 @@ matrix getsol(array*a){
     if(temp.at[i]==0){
       for(int z =1; z!= 10;z++){
         temp.at[i]=z;
-        if(isvalid(&temp)==0){
+        if(isvalid(&temp)){
           break;
         }
         temp.at[i]=0;
@@ -93,7 +134,7 @@ matrix getsol(array*a){
     printf("%i",temp.at[ll]);
   }
 
-  printf("\n%i",isvalid(&temp));
+  printf("\nvalid? :%s",isvalid(&temp)?"true":"false");
   return sol;
 }
 int main(){
@@ -110,16 +151,21 @@ int main(){
     {0,0,0, 0,0,0, 0,0,0},
     {0,0,0, 0,0,0, 0,0,0},
   };
+  
   for(int r = 0;r!=9;r++){
     array trow;
     arrayinit(&trow,1);
     for(int c = 0;c!=9;c++){
         arrayins(&trow,puzzle[r][c]);
       }
-    matrixins(&sudoku,trow);
+    matrixins(&sudoku,&trow);
   }
-  getsol(&sudoku.at[0]);
-
+  //getsol(&sudoku.at[0]);
+  
+  //matrixlist(&sudoku);
+  matrix x;
+  x = array_permutations(sudoku.at[0]);
+  matrixlist(&x);
   //arrayins(&sudoku,5);
   //printf("%d",sudoku.at[0].at[0]);
   return 0;
