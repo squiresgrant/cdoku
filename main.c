@@ -10,12 +10,12 @@ void arrayinit(array *a,size_t init){
   a->used = 0;
   a->size = init;
 }
-void arrayins(array *a, int e){
+void arrayins(array *a, int *e){
   if(a->used == a->size){
     a->size *= 2;
     a->at = realloc(a->at, a->size * sizeof(int));
   }
-  a->at[a->used++] = e;
+  a->at[a->used++] = *e;
 }
 void arraykill(array *a){
     free(a->at);
@@ -79,7 +79,7 @@ array array_shuffle_left(array*a){
   array an;
   arrayinit(&an,1);
   for(int x = 0; x!=a->used; x++){
-    arrayins(&an,a->at[x+1]);
+    arrayins(&an,&a->at[x+1]);
   }
   an.at[an.used-1] = temp;
   for(int x = 0; x!=a->used; x++){
@@ -100,41 +100,31 @@ matrix array_permutations(array a){
   return perm;
 }
 matrix getsol(array*a){
-  array empty,contains,temp;
+  array a2;
+  arrayinit(&a2,1);
+  for(int i = 0; i!=a->used;i++){
+    arrayins(&a2,&a->at[i]);
+  }
+  array empty,temp,needs;
   matrix sol;
-  matrixinit(&sol,9);
   arrayinit(&empty,9);
-  arrayinit(&temp,9);
-  arrayinit(&contains,9);
-  for(int i = 0; i!=9;i++){
-    if(a->at[i]!=0){
-      arrayins(&contains,a->at[i]);
-    }else{
-      arrayins(&empty,i);
-    }
-    
-    arrayins(&temp,a->at[i]);
-  }
-  for(int it = 0; it != (int)empty.used; it++){
-    int e = empty.at[it];
-    
-  }
-  for(int i = 0; i != 9; i++){
-    if(temp.at[i]==0){
-      for(int z =1; z!= 10;z++){
+  arrayinit(&needs,9);
+  temp = a2;
+  for(int i = 0; i != a2.used; i++){
+    if(a2.at[i]==0){
+      arrayins(&empty,&i);
+      for(int z = 1;z!=10;z++){
         temp.at[i]=z;
         if(isvalid(&temp)){
-          break;
+          arrayins(&needs,&a2.at[i]);
+          break;  
         }
-        temp.at[i]=0;
-      }
+        }    
     }
   }
-  for(int ll = 0; ll!=9;ll++){
-    printf("%i",temp.at[ll]);
-  }
-
-  printf("\nvalid? :%s",isvalid(&temp)?"true":"false");
+  sol = array_permutations(needs);
+  
+  //printf("\nvalid? :%s",isvalid(&temp)?"true":"false");
   return sol;
 }
 int main(){
@@ -156,12 +146,12 @@ int main(){
     array trow;
     arrayinit(&trow,1);
     for(int c = 0;c!=9;c++){
-        arrayins(&trow,puzzle[r][c]);
+        arrayins(&trow,&puzzle[r][c]);
       }
     matrixins(&sudoku,&trow);
   }
-  //getsol(&sudoku.at[0]);
-  
+  matrix z = getsol(&sudoku.at[0]);
+  matrixlist(&z);
   //matrixlist(&sudoku);
   matrix x;
   x = array_permutations(sudoku.at[0]);
