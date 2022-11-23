@@ -230,13 +230,55 @@ int isMvalid(matrix q){
   }
   return 0;
 }
+void arrayclear(array*a){
+  a->used=0;
+  a->size=1;
+  a->at=malloc(sizeof(int));
+}
 matrix bruteforce(matrix q){
-  array temp = {q.at[0].at,5,5};
-  //matrixcopy(&temp,q);
-  //memcpy(&temp, &q, sizeof(q));
-  q.at[0].at[0]=5;
-  arraylist(temp);
-  
+  matrix temp,notin;
+  array ttt,tty;
+  arrayinit(&ttt,1);
+  arrayinit(&tty,1);
+  matrixinit(&temp,1);
+  matrixinit(&notin,1);
+  for(int x = 0;x!=q.used;x++){
+    arrayclear(&ttt);
+    arrayclear(&tty);
+    for(int y = 0;y!=q.at[x].used;y++){
+      arrayins(&ttt,q.at[x].at[y]);
+      arrayins(&tty,0);
+    }
+    matrixins(&notin,tty);
+    matrixins(&temp,ttt);
+  }
+  int isnot = 0;
+  for(int x = 0; x != temp.used; x++){
+    for(int y = 0; y!= temp.at[x].used; y=y){
+      if(temp.at[x].at[y]==0){
+        for(int z = 1; z!=10;z++){
+          temp.at[x].at[y]=z+isnot;
+          if(isMvalid(temp)==0){
+            break;
+          }
+          temp.at[x].at[y]=0;
+        }
+      }
+    if(temp.at[x].at[y]==0){
+      if(y==0){
+          x-=1;
+          y=9;
+        }     
+        y--;
+        printf("\n%i %i\n",x,y);
+        isnot=temp.at[x].at[y];
+        temp.at[x].at[y]=0;
+    }else{
+    y++;
+    }
+    }
+  }
+  matrixlist(temp);
   return q;
 }
 int main(){
