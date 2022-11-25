@@ -253,29 +253,54 @@ matrix bruteforce(matrix q){
     matrixins(&temp,ttt);
   }
   int isnot = 0;
+  int backtrace = 0;
   for(int x = 0; x != temp.used; x++){
     for(int y = 0; y!= temp.at[x].used; y=y){
+      if(q.at[x].at[y]==0){
       if(temp.at[x].at[y]==0){
         for(int z = 1; z!=10;z++){
-          temp.at[x].at[y]=z+isnot;
+          temp.at[x].at[y]=z;
           if(isMvalid(temp)==0){
             break;
           }
           temp.at[x].at[y]=0;
         }
+      } else {
+        //go through everything after previous value
+        for(int z = temp.at[x].at[y]; z!=10;z++){
+          temp.at[x].at[y]=z;
+          if(isMvalid(temp)==0){
+            break;
+          }
+          temp.at[x].at[y]=0;
+        }
+        //
       }
-    if(temp.at[x].at[y]==0){
-      if(y==0){
-          x-=1;
-          y=9;
-        }     
-        y--;
-        printf("\n%i %i\n",x,y);
-        isnot=temp.at[x].at[y];
-        temp.at[x].at[y]=0;
-    }else{
-    y++;
-    }
+      if(temp.at[x].at[y]==0){
+        printf("\n");
+        //oh no! there arent any more valid numbers, time to backtrace more
+        backtrace = 1;
+      } else {
+        //seems good, continue on
+        backtrace = 0;
+      }
+      }
+      printf(" %i %i %i\n",x,y,backtrace);
+      if(backtrace==0){
+        y++;
+      } else {
+        if(y==0){
+          if(x==0){
+            printf("\n:( cant continue. must fail");
+            return q;
+          }
+          x--;
+          y=7;
+        } else {
+          y--;
+        }
+      }
+      
     }
   }
   matrixlist(temp);
