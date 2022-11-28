@@ -127,7 +127,7 @@ array getsquare(matrix q, int n){//only works with 9x9 probably
     arrayins(&sq,q.at[0].at[2]);
     arrayins(&sq,q.at[1].at[0]);
     arrayins(&sq,q.at[1].at[1]);
-    arrayins(&sq,q.at[2].at[2]);
+    arrayins(&sq,q.at[1].at[2]);
     arrayins(&sq,q.at[2].at[0]);
     arrayins(&sq,q.at[2].at[1]);
     arrayins(&sq,q.at[2].at[2]);
@@ -259,7 +259,6 @@ int isMvalid(matrix q){
   for(int x = 0; x!= q.used;x++){
     array t1 = rowtocol(q,x);
     array t2 = getsquare(q,x);
-    //arraylist(t2);
     if(0==isvalid(q.at[x])||0==isvalid(t1)||0==isvalid(t2)){
       return 1;
     }
@@ -320,7 +319,6 @@ matrix bruteforce(matrix q){
         //
       }
       if(temp.at[x].at[y]==0){
-        printf("\n");
         //oh no! there arent any more valid numbers, time to backtrace more
         backtrace = 1;
       } else {
@@ -328,12 +326,13 @@ matrix bruteforce(matrix q){
         backtrace = 0;
       }
       }
-      printf(" %i %i %i\n",x,y,backtrace);
+      //if(x==2&&y==2)
+      //printf(" %i %i %i\n",x,y,backtrace);
       if(backtrace==0){
         y++;
       } else {
         if(y==0){
-          printf("backtraced alot!");
+          //printf("backtraced alot!");
           if(x==0){
             printf("\n:( cant continue. must fail");
             return temp;
@@ -344,7 +343,6 @@ matrix bruteforce(matrix q){
           y--;
         }
       }
-      
     }
   }
   matrixlist(temp);
@@ -353,16 +351,27 @@ matrix bruteforce(matrix q){
 int main(){
   matrix sudoku;
   matrixinit(&sudoku,9);
+  /*int puzzle[9][9] = {
+    {6,8,0, 4,0,3, 0,5,0},
+    {4,0,2, 0,5,0, 3,6,8},
+    {5,9,3, 6,7,8, 0,0,4},
+    {0,1,7, 2,8,6, 9,4,5},
+    {8,0,9, 5,0,4, 2,0,7},
+    {2,5,4, 3,9,7, 8,1,0},
+    {7,0,0, 8,3,1, 5,9,2},
+    {9,3,5, 0,6,0, 4,0,1},
+    {0,2,0, 9,0,5, 0,7,3},
+  };*/
   int puzzle[9][9] = {
-    {1,2,3, 4,0,0, 5,6,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
-    {0,0,0, 0,0,0, 0,0,0},
+    {0,0,0, 4,9,6, 0,0,0},
+    {7,0,3, 0,0,0, 0,9,0},
+    {0,0,0, 0,0,0, 5,0,0},
+    {0,8,4, 7,0,0, 0,0,0},
+    {0,0,0, 0,0,0, 0,5,2},
+    {3,0,0, 1,0,0, 7,0,0},
+    {0,4,0, 0,5,0, 0,2,7},
+    {6,0,0, 8,0,9, 0,0,3},
+    {0,0,0, 0,0,4, 0,0,0},
   };
   for(int r = 0;r!=9;r++){
     array trow;
@@ -378,6 +387,7 @@ int main(){
     *that the program can read
   */
   clock_t t;
+  matrixlist(sudoku);
   t = clock();
   //printf("\n%i\n",isMvalid(sudoku));
   //arraylist(getsquare(sudoku,0));
