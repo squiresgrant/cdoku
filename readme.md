@@ -14,9 +14,9 @@ check out `just --list` for more options
 
 ### examples and some bench marks
 
-~3100 MHz  -  ~ 1.3s
-
-1.60 GHz   -  ~0.169s
+1.80 GHz arm  -  ~1.3s  </br>
+1.60 GHz x86  -  ~0.169s</br>
+3.18 GHz x86  -  ~0.02s </br>
 
 ### todo
 
