@@ -120,73 +120,109 @@ array rowtocol(matrix m,int col){
 array getsquare(matrix q, int n){//only works with 9x9 probably
   array sq;
   arrayinit(&sq,1);
-  int i = 0;
-  int i2 = 0;
   switch(n){
+    case 0:
+    arrayins(&sq,q.at[0].at[0]);
+    arrayins(&sq,q.at[0].at[1]);
+    arrayins(&sq,q.at[0].at[2]);
+    arrayins(&sq,q.at[1].at[0]);
+    arrayins(&sq,q.at[1].at[1]);
+    arrayins(&sq,q.at[2].at[2]);
+    arrayins(&sq,q.at[2].at[0]);
+    arrayins(&sq,q.at[2].at[1]);
+    arrayins(&sq,q.at[2].at[2]);
+    break;
     case 1:
-      i = 3;
+    arrayins(&sq,q.at[0].at[0+3]);
+    arrayins(&sq,q.at[0].at[1+3]);
+    arrayins(&sq,q.at[0].at[2+3]);
+    arrayins(&sq,q.at[1].at[0+3]);
+    arrayins(&sq,q.at[1].at[1+3]);
+    arrayins(&sq,q.at[1].at[2+3]);
+    arrayins(&sq,q.at[2].at[0+3]);
+    arrayins(&sq,q.at[2].at[1+3]);
+    arrayins(&sq,q.at[2].at[2+3]);
     break;
     case 2:
-      i =6;
+    arrayins(&sq,q.at[0].at[0+6]);
+    arrayins(&sq,q.at[0].at[1+6]);
+    arrayins(&sq,q.at[0].at[2+6]);
+    arrayins(&sq,q.at[1].at[0+6]);
+    arrayins(&sq,q.at[1].at[1+6]);
+    arrayins(&sq,q.at[1].at[2+6]);
+    arrayins(&sq,q.at[2].at[0+6]);
+    arrayins(&sq,q.at[2].at[1+6]);
+    arrayins(&sq,q.at[2].at[2+6]);
     break;
     case 3:
-      i2 = 3;
+    arrayins(&sq,q.at[0+3].at[0]);
+    arrayins(&sq,q.at[0+3].at[1]);
+    arrayins(&sq,q.at[0+3].at[2]);
+    arrayins(&sq,q.at[1+3].at[0]);
+    arrayins(&sq,q.at[1+3].at[1]);
+    arrayins(&sq,q.at[1+3].at[2]);
+    arrayins(&sq,q.at[2+3].at[0]);
+    arrayins(&sq,q.at[2+3].at[1]);
+    arrayins(&sq,q.at[2+3].at[2]);
+    break;
     case 4:
-      i2 = 3;
-      i = 3;
+    arrayins(&sq,q.at[0+3].at[0+3]);
+    arrayins(&sq,q.at[0+3].at[1+3]);
+    arrayins(&sq,q.at[0+3].at[2+3]);
+    arrayins(&sq,q.at[1+3].at[0+3]);
+    arrayins(&sq,q.at[1+3].at[1+3]);
+    arrayins(&sq,q.at[1+3].at[2+3]);
+    arrayins(&sq,q.at[2+3].at[0+3]);
+    arrayins(&sq,q.at[2+3].at[1+3]);
+    arrayins(&sq,q.at[2+3].at[2+3]);
     break;
     case 5:
-      i2 = 3;
-      i = 6;
+    arrayins(&sq,q.at[0+3].at[0+6]);
+    arrayins(&sq,q.at[0+3].at[1+6]);
+    arrayins(&sq,q.at[0+3].at[2+6]);
+    arrayins(&sq,q.at[1+3].at[0+6]);
+    arrayins(&sq,q.at[1+3].at[1+6]);
+    arrayins(&sq,q.at[1+3].at[2+6]);
+    arrayins(&sq,q.at[2+3].at[0+6]);
+    arrayins(&sq,q.at[2+3].at[1+6]);
+    arrayins(&sq,q.at[2+3].at[2+6]);
     break;
     case 6:
-      i2 =6;
+    arrayins(&sq,q.at[0+6].at[0]);
+    arrayins(&sq,q.at[0+6].at[1]);
+    arrayins(&sq,q.at[0+6].at[2]);
+    arrayins(&sq,q.at[1+6].at[0]);
+    arrayins(&sq,q.at[1+6].at[1]);
+    arrayins(&sq,q.at[1+6].at[2]);
+    arrayins(&sq,q.at[2+6].at[0]);
+    arrayins(&sq,q.at[2+6].at[1]);
+    arrayins(&sq,q.at[2+6].at[2]);
     break;
     case 7:
-      i2 =6;
-      i = 3;
+    arrayins(&sq,q.at[0+6].at[0+3]);
+    arrayins(&sq,q.at[0+6].at[1+3]);
+    arrayins(&sq,q.at[0+6].at[2+3]);
+    arrayins(&sq,q.at[1+6].at[0+3]);
+    arrayins(&sq,q.at[1+6].at[1+3]);
+    arrayins(&sq,q.at[1+6].at[2+3]);
+    arrayins(&sq,q.at[2+6].at[0+3]);
+    arrayins(&sq,q.at[2+6].at[1+3]);
+    arrayins(&sq,q.at[2+6].at[2+3]);
     break;
     case 8:
-      i2=6;
-      i=6;
+    arrayins(&sq,q.at[0+6].at[0+6]);
+    arrayins(&sq,q.at[0+6].at[1+6]);
+    arrayins(&sq,q.at[0+6].at[2+6]);
+    arrayins(&sq,q.at[1+6].at[0+6]);
+    arrayins(&sq,q.at[1+6].at[1+6]);
+    arrayins(&sq,q.at[1+6].at[2+6]);
+    arrayins(&sq,q.at[2+6].at[0+6]);
+    arrayins(&sq,q.at[2+6].at[1+6]);
+    arrayins(&sq,q.at[2+6].at[2+6]);
     break;
   }
   //arrayins(&sq)
-  int a1 = i + 0;
-  int a2 = i2 + 0;
-
-  int b1 = i + 1;
-  int b2 = i2 + 0;
-
-  int c1 = i + 2;
-  int c2 = i2 + 1;
-
-  int d1 = i + 0;
-  int d2 = i2 + 1;
-
-  int e1 = i + 1;
-  int e2 = i2 + 1;
-
-  int f1 = i + 2;
-  int f2 = i2 + 1;
-
-  int g1 = i + 0;
-  int g2 = i2 + 2;
-
-  int h1 = i + 1;
-  int h2 = i2 + 2;
-
-  int j1 = i + 2;
-  int j2 = i2 + 2;
-  arrayins(&sq,q.at[a2].at[a1]);
-  arrayins(&sq,q.at[b2].at[b1]);
-  arrayins(&sq,q.at[c2].at[c1]);
-  arrayins(&sq,q.at[d2].at[d1]);
-  arrayins(&sq,q.at[e2].at[e1]);
-  arrayins(&sq,q.at[f2].at[f1]);
-  arrayins(&sq,q.at[g2].at[g1]);
-  arrayins(&sq,q.at[h2].at[h1]);
-  arrayins(&sq,q.at[j2].at[j1]);
+  
   return sq;
 }
 matrix getposible(array a){
@@ -267,11 +303,18 @@ matrix bruteforce(matrix q){
         }
       } else {
         //go through everything after previous value
-        for(int z = temp.at[x].at[y]; z!=10;z++){
+        //matrixlist(temp);
+        //printf("%i",temp.at[x].at[y]);
+        //return q;
+        if(temp.at[x].at[y]!=9){
+        for(int z = temp.at[x].at[y]+1; z!=10;z++){
           temp.at[x].at[y]=z;
           if(isMvalid(temp)==0){
             break;
           }
+          temp.at[x].at[y]=0;
+        }
+        } else {
           temp.at[x].at[y]=0;
         }
         //
@@ -290,12 +333,13 @@ matrix bruteforce(matrix q){
         y++;
       } else {
         if(y==0){
+          printf("backtraced alot!");
           if(x==0){
             printf("\n:( cant continue. must fail");
-            return q;
+            return temp;
           }
           x--;
-          y=7;
+          y=8;
         } else {
           y--;
         }
@@ -320,7 +364,6 @@ int main(){
     {0,0,0, 0,0,0, 0,0,0},
     {0,0,0, 0,0,0, 0,0,0},
   };
-  
   for(int r = 0;r!=9;r++){
     array trow;
     arrayinit(&trow,1);
@@ -337,6 +380,7 @@ int main(){
   clock_t t;
   t = clock();
   //printf("\n%i\n",isMvalid(sudoku));
+  //arraylist(getsquare(sudoku,0));
   bruteforce(sudoku);
   t = clock() - t;
   double time_taken = ((double)t)/CLOCKS_PER_SEC;
