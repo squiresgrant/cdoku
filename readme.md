@@ -14,7 +14,8 @@ check out `just --list` for more options
 
 ### examples and some bench marks
 
-1.60 GHz - ~0.169s
+~3100 MHz  -  ~ 1.3s
+1.60 GHz   -  ~0.169s
 
 ### todo
 
